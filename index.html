@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>fullpage</title>
+    <style type="text/css">
+      
+      body{
+        margin:0px;
+        padding:0px;
+        width:100%;
+        height:100%;
+        overflow:hidden;
+      }
+      
+      .items{
+        width:100%;
+        height:100%;
+        position:absolute;
+      }
+    
+
+      .up-enter-active{
+        transition: all 1s ease;
+        transform:translateY(0%);
+      }
+
+      .up-leave-active{
+        transition: all 1s ease;
+        transform:translateY(-100%);
+      }
+
+      .up-enter{
+        transform:translateY(100%);
+      }
+
+      .up-leave{
+        transform:translateY(0%);
+      }
+
+
+      .down-enter-active{
+        transition: all 1s ease;
+        transform:translateY(0%);
+      }
+
+      .down-leave-active{
+        transition: all 1s ease;
+        transform:translateY(100%);
+      }
+
+      .down-enter{
+        transform:translateY(-100%);
+      }
+
+      .down-leave{
+        transform:translateY(0%);
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <transition-group tag="div" v-bind:name="updown">
+        <div class="items" 
+          v-for="(list,index) in bgColor" 
+          v-bind:key="list.name"
+          v-bind:style="{'background-color':list.bg}"
+          v-show="index===curIndex"
+          v-on:wheel="changeIndex($event)"
+          v-on:transitionend="toTop">{{list.name}}</div>
+        </div>
+      </transition-group>
+  </body>
+</html>
