@@ -28,6 +28,7 @@ new Vue({
     ],
     curIndex:0,
     updown:"",
+    aniCount:0,
     canScroll:true
   },
   methods:{
@@ -41,6 +42,7 @@ new Vue({
       if(e.deltaY>0){
         this.updown='up';
         this.curIndex ++;
+
         if(this.curIndex >3){
           this.curIndex=0;
         }
@@ -49,17 +51,21 @@ new Vue({
       if(e.deltaY<0){
         this.updown='down';
         this.curIndex --;
+
         if(this.curIndex<0){
           this.curIndex=3;
         }
       }
       
-        //  this.canScroll=true;
 
     },
 
     toTop:function(){
-      this.canScroll=true;
+      this.aniCount ++;
+      if(this.aniCount===2){
+        this.canScroll=true;
+        this.aniCount=0;
+      }
     }
   }
 })
