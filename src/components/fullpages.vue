@@ -2,7 +2,7 @@
     <div>
         <transition-group tag="div" v-bind:name="updown">
             <div class="items" 
-            v-for="(list,index) in bgColor" 
+            v-for="(list,index) in bgcolor" 
             v-bind:key="list.name"
             v-bind:style="{'background-color':list.bg}"
             v-show="index===curIndex"
@@ -63,26 +63,14 @@
 
 <script>
 export default {
+  // props:['bgcolor','pages'],
+  props:{
+    bgcolor:{
+      type:Array
+    }
+  },  
     data:function(){
         return  {
-            bgColor:[
-            {
-                name:'Page1',
-                bg:'#c09'
-            },
-            {
-                name:'Page2',
-                bg:'#c90'
-            },
-            {
-                name:'Page3',
-                bg:'#9c0'
-            },
-            {
-                name:'Page4',
-                bg:'#90c'
-            },
-            ],
             curIndex:0,
             updown:"",
             aniCount:0,
