@@ -2,12 +2,12 @@
     <div>
         <transition-group tag="div" v-bind:name="updown">
             <div class="items" 
-            v-for="(list,index) in bgcolor" 
-            v-bind:key="list.name"
-            v-bind:style="{'background-color':list.bg}"
+            v-for="(list,index) in pages" 
+            v-bind:key="bgcolor[index]['name']"
+            v-bind:style="{'background-color':bgcolor[index]['bg']}"
             v-show="index===curIndex"
             v-on:wheel="changeIndex($event)"
-            v-on:transitionend="toTop">{{list.name}}
+            v-on:transitionend="toTop">{{bgcolor[index]['name']}}
             </div>
         </transition-group> 
     </div>
@@ -63,10 +63,33 @@
 
 <script>
 export default {
-  // props:['bgcolor','pages'],
   props:{
     bgcolor:{
-      type:Array
+      type:Array,
+      default:function(){
+        return [
+      {
+          name:'defaultPage1',
+          bg:'#c09'
+      },
+      {
+          name:'defaultPage2',
+          bg:'#c90'
+      },
+      {
+          name:'defaultPage3',
+          bg:'#9c0'
+      },
+      {
+          name:'defaultPage4',
+          bg:'#90c'
+      }
+      ]
+      }
+    },
+    pages:{
+      type:Number,
+      default:4
     }
   },  
     data:function(){
@@ -86,11 +109,12 @@ export default {
 
       this.canScroll=false;
 
+
       if(e.deltaY>0){
         this.updown='up';
         this.curIndex ++;
 
-        if(this.curIndex >3){
+        if(this.curIndex >this.pages-1){
           this.curIndex=0;
         }
       }
@@ -100,7 +124,7 @@ export default {
         this.curIndex --;
 
         if(this.curIndex<0){
-          this.curIndex=3;
+          this.curIndex=this.pages-1;
         }
       }
       
