@@ -2,12 +2,12 @@
     <div>
         <transition-group tag="div" v-bind:name="updown">
             <div class="items" 
-            v-for="(list,index) in bgcolor" 
-            v-bind:key="list.name"
-            v-bind:style="{'background-color':list.bg}"
+            v-for="(list,index) in pages" 
+            v-bind:key="bgcolor[index]['name']"
+            v-bind:style="{'background-color':bgcolor[index]['bg']}"
             v-show="index===curIndex"
             v-on:wheel="changeIndex($event)"
-            v-on:transitionend="toTop">{{list.name}}
+            v-on:transitionend="toTop">{{bgcolor[index]['name']}}
             </div>
         </transition-group> 
     </div>
@@ -63,10 +63,29 @@
 
 <script>
 export default {
-  // props:['bgcolor','pages'],
   props:{
     bgcolor:{
-      type:Array
+      type:Array,
+      default:function(){
+        return [
+      {
+          name:'default Page1',
+          bg:'#5c0'
+      },
+      {
+          name:'default Page2',
+          bg:'#50c'
+      },
+      {
+          name:'default Page3',
+          bg:'#05c'
+      }
+      ]
+      }
+    },
+    pages:{
+      type:Number,
+      default:3
     }
   },  
     data:function(){
@@ -90,7 +109,7 @@ export default {
         this.updown='up';
         this.curIndex ++;
 
-        if(this.curIndex >3){
+        if(this.curIndex >this.pages-1){/*索引号从0开始所以要减1*/
           this.curIndex=0;
         }
       }
@@ -100,7 +119,7 @@ export default {
         this.curIndex --;
 
         if(this.curIndex<0){
-          this.curIndex=3;
+          this.curIndex=this.pages-1;/*索引号从0开始所以要减1*/
         }
       }
       

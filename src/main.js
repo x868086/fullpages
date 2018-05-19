@@ -11,22 +11,23 @@ new Vue({
   data:{
     bgcolor:[
       {
-          name:'Page1',
+          name:'import Page1',
           bg:'#c09'
       },
       {
-          name:'Page2',
+          name:'import Page2',
           bg:'#c90'
       },
       {
-          name:'Page3',
+          name:'import Page3',
           bg:'#9c0'
       },
       {
-          name:'Page4',
+          name:'import Page4',
           bg:'#90c'
       },
-      ]
+      ],
+      pages:4
   },
   components:{
     fullpages:fullpages
