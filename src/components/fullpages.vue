@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <transition-group tag="div" v-bind:name="updown">
+    <div v-on:wheel="changeIndex($event)">
+        <transition-group tag="div" v-bind:name="updown" >
             <div class="items" 
             v-for="(list,index) in pages" 
             v-bind:key="bgcolor[index]['name']"
             v-bind:style="{'background-color':bgcolor[index]['bg']}"
             v-show="index===curIndex"
-            v-on:wheel="changeIndex($event)"
-            v-on:transitionend="toTop">{{bgcolor[index]['name']}}
+            v-on:transitionend="toTop"
+            >{{bgcolor[index]['name']}}
+              <slot name="slotContent2"></slot>
             </div>
         </transition-group> 
     </div>

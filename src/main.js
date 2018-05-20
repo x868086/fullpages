@@ -1,7 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import fullpages from './components/fullpages.vue'
+import fullpages from './components/fullpages.vue';
+import page1 from './components/page1.vue';
 
 Vue.config.productionTip = false
 
@@ -30,6 +31,7 @@ new Vue({
       pages:4
   },
   components:{
-    fullpages:fullpages
+    fullpages:fullpages,
+    page1:page1
   }
 })

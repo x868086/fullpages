@@ -21,7 +21,12 @@
   </head>
   <body>
     <div id="app">
-      <fullpages v-bind:bgcolor="bgcolor"></fullpages>
+      <fullpages v-bind:bgcolor="bgcolor">
+        <template slot="slotContent2">
+          <page1></page1>
+        </template>
+        <!-- <page slot="page2"></page> -->
+      </fullpages>
     </div>
   </body>
 </html>
