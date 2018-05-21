@@ -7,27 +7,30 @@
 
 <script>
 export default {
-    // props=[],
+    props:["state","slotindex"],
     data:function(){
         return {
             msg:"new Vue({".split("").concat(["</br>","&nbsp&nbsp"],"el:'app'".split("").concat(["<br/>"],["})"])),
             codes:[],
-            show:true,
+            show:false,
             timerCode:null,
             timerCursor:null
         }
     },
-    mounted:function(){
-        this.pushMsg();
-        this.cursor()
-    },
+    // mounted:function(){
+    //     this.pushMsg();
+    //     this.cursor()
+    // },
     methods:{
             pushMsg:function(){
                 this.timerCode=setInterval(()=>{
                     this.codes.push(this.msg[this.codes.length])//数组每次推送时index自动根据数组自身长度改变
                     console.log(this.codes)
                     if(this.codes.length===this.msg.length){
-                        clearInterval(this.timerCode)
+                        clearInterval(this.timerCode);
+                        this.timerCode=null;
+                        clearInterval(this.timerCursor);
+                        this.timerCursor=null;
                     }
                 },200)
             },
@@ -37,6 +40,15 @@ export default {
                 },500)
             }
 
+    },
+    watch:{
+        state:function(){
+            this.codes=[];
+            if(this.state==="enter"||this.state==="leave"&&this.index==1){
+                this.pushMsg();
+                this.cursor();
+            }
+        }
     }
 }
 </script>

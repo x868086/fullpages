@@ -1,6 +1,8 @@
 <template>
     <div v-on:wheel="changeIndex($event)">
-        <transition-group tag="div" v-bind:name="updown" >
+        <transition-group tag="div" v-bind:name="updown"
+        v-on:enter="enter"
+        v-on:leave="leave">
             <div class="items" 
             v-for="(list,index) in pages" 
             v-bind:key="bgcolor[index]['name']"
@@ -8,7 +10,13 @@
             v-show="index===curIndex"
             v-on:transitionend="toTop"
             >{{bgcolor[index]['name']}}
-              <slot name="slotContent2"></slot>
+              <slot 
+              v-for="slotIndex in pages"
+              v-bind:slotindex="slotIndex"
+              v-bind:name="'slotContent'+slotIndex"
+              v-bind:state="state"
+              v-if="slotIndex==index"
+              ></slot>
             </div>
         </transition-group> 
     </div>
@@ -94,7 +102,9 @@ export default {
             curIndex:0,
             updown:"",
             aniCount:0,
-            canScroll:true
+            canScroll:true,
+            state:"",
+            ccc:""
         }
     },
     
@@ -109,18 +119,18 @@ export default {
       if(e.deltaY>0){
         this.updown='up';
         this.curIndex ++;
-
         if(this.curIndex >this.pages-1){/*索引号从0开始所以要减1*/
           this.curIndex=0;
+          return
         }
       }
 
       if(e.deltaY<0){
         this.updown='down';
         this.curIndex --;
-
         if(this.curIndex<0){
           this.curIndex=this.pages-1;/*索引号从0开始所以要减1*/
+          return
         }
       }
       
@@ -132,7 +142,16 @@ export default {
       if(this.aniCount===2){
         this.canScroll=true;
         this.aniCount=0;
+        this.state="transitionend"
       }
+    },
+
+    enter:function(){
+      this.state="enter";
+    },
+
+    leave:function(){
+      this.state="leave";
     }
   }
 }

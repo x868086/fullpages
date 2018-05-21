@@ -22,10 +22,15 @@
   <body>
     <div id="app">
       <fullpages v-bind:bgcolor="bgcolor">
-        <template slot="slotContent2">
-          <page1></page1>
+        <template slot="slotContent1" slot-scope="props">
+          <page1 v-bind:state="props.state"
+          v-bind:slotindex="props.slotindex"
+          ></page1>
         </template>
-        <!-- <page slot="page2"></page> -->
+        
+        <!-- <page1 slot="slotContent3" slot-scope="props"
+        v-bind:state="props.state"
+        v-bind:slotindex="props.slotindex"></page1> -->
       </fullpages>
     </div>
   </body>
